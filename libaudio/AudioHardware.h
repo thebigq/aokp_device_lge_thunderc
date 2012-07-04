@@ -38,6 +38,10 @@ namespace android_audio_legacy {
 using android::SortedVector;
 using android::Mutex;
 
+// Workaround for mismatched AudioSystemLegacy.h
+#define AUDIO_SYSTEM_EVRC       0x08000000
+#define AUDIO_SYSTEM_QCELP      0x09000000
+
 // thunderc SPEAKER_IN_CALL fix
 #define AUDIO_DEVICE_OUT_SPEAKER_IN_CALL 0x4000
 
