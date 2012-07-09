@@ -177,7 +177,7 @@ PRODUCT_PACKAGES += \
 
 # XXX: These would normally be in vendor/aokp/products/PRODUCT_DEVICE.mk
 PRODUCT_COPY_FILES += \
-    vendor/aokp/prebuilt/mdpi/bootanimation.zip:system/media/bootanimation.zip
+    vendor/aokp/prebuilt/bootanimation/bootanimation_320_480.zip:system/media/bootanimation.zip
 
 
 
