@@ -1,74 +1,21 @@
+PRODUCT_COPY_FILES += device/lge/thunderc/configs/media_profiles.xml:system/etc/media_profiles.xml
+
+# XXX: should be full_base_telephony?
+$(call inherit-product, build/target/product/full.mk)
+
+$(call inherit-product, build/target/product/languages_small.mk)
+$(call inherit-product, vendor/aokp/configs/common.mk)
+
+$(call inherit-product-if-exists, vendor/lge/thunderc/thunderc-vendor.mk)
+
 PRODUCT_AAPT_CONFIG := normal mdpi 
 PRODUCT_AAPT_PREF_CONFIG := mdpi 
 
-PRODUCT_LOCALES := en_US es_ES
+PRODUCT_LOCALES := en_US en_ES
 
-BOOTIMAGES := $(wildcard device/lge/thunderc-common/bootimages/*.rle)
+BOOTIMAGES := $(wildcard device/lge/thunderc/bootimages/*.rle)
 
-# Don't want boot images or charger images in recovery.
-# They are not needed and they exceed the VS660 recovery size.
-RECOVERY_REMOVE_FILES := bootimages chargerimages
-
-# DRM blobs (vendor/aokp commit e709b1c5af95fd4d87837bed23b8a1e8594dbc6b)
-# Note property drm.service.enabled should not be set but seems harmless
-PRODUCT_REMOVE_FILES += \
-	system/etc/permissions/com.google.widevine.software.drm.xml \
-	system/framework/com.google.widevine.software.drm.jar \
-	system/lib/libfrsdk.so \
-	system/lib/libWVphoneAPI.so \
-	system/vendor/lib/libwvdrm_L1.so \
-	system/vendor/lib/libwvm.so \
-	system/vendor/lib/libWVStreamControlAPI_L1.so \
-	system/vendor/lib/drm/libdrmwvmplugin.so
-
-# PicoTTS
-PRODUCT_REMOVE_FILES += \
-	system/tts/lang_pico/de-DE_gl0_sg.bin \
-	system/tts/lang_pico/de-DE_ta.bin \
-	system/tts/lang_pico/en-GB_kh0_sg.bin \
-	system/tts/lang_pico/en-GB_ta.bin \
-	system/tts/lang_pico/fr-FR_nk0_sg.bin \
-	system/tts/lang_pico/fr-FR_ta.bin \
-	system/tts/lang_pico/it-IT_cm0_sg.bin \
-	system/tts/lang_pico/it-IT_ta.bin
-
-# Wallpapers and Media
-PRODUCT_REMOVE_FILES += \
-	system/app/LiveWallpapers.apk \
-	system/app/MagicSmokeWallpapers.apk \
-	system/app/PhaseBeam.apk \
-	system/app/SwagPapers.apk \
-	system/app/VisualizationWallpapers.apk \
-	system/media/audio/alarms/Nobelium.ogg \
-	system/media/audio/alarms/Nobelium.ogg \
-	system/media/audio/alarms/Plutonium.ogg \
-	system/media/audio/alarms/Plutonium.ogg \
-	system/media/audio/ringtones/FreeFlight.ogg \
-	system/media/audio/ringtones/FreeFlight.ogg \
-	system/media/audio/ringtones/Perseus.ogg \
-	system/media/audio/ringtones/Perseus.ogg \
-	system/media/audio/ringtones/Scarabaeus.ogg \
-	system/media/audio/ringtones/Scarabaeus.ogg \
-	system/media/audio/ringtones/Sceptrum.ogg \
-	system/media/audio/ringtones/Sceptrum.ogg \
-	system/media/audio/ringtones/Themos.ogg \
-	system/media/audio/ringtones/Themos.ogg \
-	system/media/audio/ringtones/UrsaMinor.ogg \
-	system/media/audio/ringtones/UrsaMinor.ogg \
-	system/media/video/AndroidInSpace.240p.mp4 \
-	system/media/video/AndroidInSpace.480p.mp4 \
-	system/media/video/Disco.240p.mp4 \
-	system/media/video/Disco.480p.mp4 \
-	system/media/video/Sunset.240p.mp4 \
-	system/media/video/Sunset.480p.mp4
-
-# Other
-PRODUCT_REMOVE_FILES += \
-	system/app/VideoEditor.apk \
-#	system/lib/libvideoeditor_jni.so \
-#	system/lib/libvideoeditorplayer.so
-
-DEVICE_PACKAGE_OVERLAYS += device/lge/thunderc-common/overlay
+DEVICE_PACKAGE_OVERLAYS += device/lge/thunderc/overlay
 
 # We have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
@@ -85,22 +32,22 @@ PRODUCT_COPY_FILES += \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
 
 PRODUCT_COPY_FILES += \
-    device/lge/thunderc-common/init.rc:root/init.rc \
-    device/lge/thunderc-common/prebuilt/initlogo.rle:root/initlogo.rle \
-    device/lge/thunderc-common/prebuilt/init.qcom.sh:root/init.qcom.sh \
-#    device/lge/thunderc-common/prebuilt/init.qcom.post_boot.sh:system/etc/init.qcom.post_boot.sh
+    device/lge/thunderc/init.rc:root/init.rc \
+    device/lge/thunderc/prebuilt/initlogo.rle:root/initlogo.rle \
+    device/lge/thunderc/prebuilt/init.qcom.sh:root/init.qcom.sh \
+#    device/lge/thunderc/prebuilt/init.qcom.post_boot.sh:system/etc/init.qcom.post_boot.sh
 
 # BT startup
-PRODUCT_COPY_FILES += device/lge/thunderc-common/prebuilt/init.qcom.bt.sh:system/bin/init.qcom.bt.sh
+PRODUCT_COPY_FILES += device/lge/thunderc/prebuilt/init.qcom.bt.sh:system/bin/init.qcom.bt.sh
 
 # configs
-PRODUCT_COPY_FILES += device/lge/thunderc-common/configs/AudioFilter.csv:system/etc/AudioFilter.csv
-PRODUCT_COPY_FILES += device/lge/thunderc-common/configs/thunderc_keypad.kl:system/usr/keylayout/thunderc_keypad.kl
-PRODUCT_COPY_FILES += device/lge/thunderc-common/configs/thunderc_keypad.kcm.bin:system/usr/keychars/thunderc_keypad.kcm.bin
-PRODUCT_COPY_FILES += device/lge/thunderc-common/configs/7k_handset.kl:system/usr/keylayout/7k_handset.kl
-PRODUCT_COPY_FILES += device/lge/thunderc-common/configs/Generic.kl:system/usr/keylayout/Generic.kl
-PRODUCT_COPY_FILES += device/lge/thunderc-common/configs/adreno_config.txt:system/etc/adreno_config.txt
-#PRODUCT_COPY_FILES += device/lge/thunderc-common/configs/vold.fstab:system/etc/vold.fstab
+PRODUCT_COPY_FILES += device/lge/thunderc/configs/AudioFilter.csv:system/etc/AudioFilter.csv
+PRODUCT_COPY_FILES += device/lge/thunderc/configs/thunderc_keypad.kl:system/usr/keylayout/thunderc_keypad.kl
+PRODUCT_COPY_FILES += device/lge/thunderc/configs/thunderc_keypad.kcm.bin:system/usr/keychars/thunderc_keypad.kcm.bin
+PRODUCT_COPY_FILES += device/lge/thunderc/configs/7k_handset.kl:system/usr/keylayout/7k_handset.kl
+PRODUCT_COPY_FILES += device/lge/thunderc/configs/Generic.kl:system/usr/keylayout/Generic.kl
+PRODUCT_COPY_FILES += device/lge/thunderc/configs/adreno_config.txt:system/etc/adreno_config.txt
+#PRODUCT_COPY_FILES += device/lge/thunderc/configs/vold.fstab:system/etc/vold.fstab
 
 # Offmode charging
 PRODUCT_PACKAGES += charger
